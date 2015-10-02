@@ -1,7 +1,7 @@
-$.FollowToggle = function (el) {
+$.FollowToggle = function (el, options) {
   this.$el = $(el);
-  this.userId = this.$el.data("user-id");
-  this.followState = this.$el.data("initial-follow-state");
+  this.userId = this.$el.data("user-id") || options.userId;
+  this.followState = this.$el.data("initial-follow-state") || options.followState;
   this.render();
   this.$el.on("click", this.handleClick.bind(this));
 };
@@ -15,7 +15,7 @@ $.FollowToggle.prototype.render = function () {
   } else if (this.followState === "unfollowed") {
     this.$el.prop("disabled", false);
     this.$el.append("Follow!");
-  } else{
+  } else {
     this.$el.prop("disabled", true);
   }
 };
@@ -23,10 +23,8 @@ $.FollowToggle.prototype.render = function () {
 $.FollowToggle.prototype.handleClick = function(e){
   e.preventDefault();
 
-
   if(this.followState === "unfollowed")
   {
-
     this.$el.empty();
     this.followState = "following";
     this.render();
@@ -34,7 +32,6 @@ $.FollowToggle.prototype.handleClick = function(e){
     $.ajax({
       url: "/users/"+this.userId+"/follow",
       type: "post",
-      data: {user_id: this.userId},
       dataType: 'json',
       success: function(responseData){
         this.followState = "followed";
@@ -52,7 +49,6 @@ $.FollowToggle.prototype.handleClick = function(e){
     $.ajax({
       url: "/users/"+this.userId+"/follow",
       type: "delete",
-      data: {user_id: this.userId},
       dataType: 'json',
       success: function(responseData){
         this.followState = "unfollowed";
@@ -63,9 +59,9 @@ $.FollowToggle.prototype.handleClick = function(e){
   }
 };
 
-$.fn.followToggle = function () {
+$.fn.followToggle = function (options) {
   return this.each(function () {
-    new $.FollowToggle(this);
+    new $.FollowToggle(this, options);
   });
 };
 
