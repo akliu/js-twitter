@@ -32,13 +32,13 @@ $.TweetCompose.prototype.handleSuccess = function(responseData){
   var content = responseData.content;
   var userName = responseData.user.username;
   var userId = responseData.user_id;
-  var createAt = responseData.created_at;
+
   var aTag = $('<a></a>').attr("href", "/users/" + userId.toString());
   aTag.append(userName);
 
   var $li = $('<li></li>').append(content + " -- ");
   $li.append(aTag);
-  $li.append(" -- " + createAt);
+  $li.append(" -- " + moment().format('MMMM Do YYYY, h:mm:ss a'));
 
 
   $feed.append($li);
