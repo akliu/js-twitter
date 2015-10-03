@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require follow_toggle
 //= require users_search
+//= require tweet_compose

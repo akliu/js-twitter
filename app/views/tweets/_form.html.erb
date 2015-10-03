@@ -1,5 +1,5 @@
 <h2>New Tweet!</h2>
-<form action="/tweets" method="POST">
+<!-- <form action="/tweets" method="POST">
   <input
       type="hidden"
       name="authenticity_token"
@@ -23,4 +23,14 @@
   <br>
 
   <input type="Submit" value="Post Tweet!">
+</form> -->
+
+<form class="tweet-compose">
+  <label>
+    Content
+    <textarea></textarea>
+    <strong class="chars-left"></strong>
+  </label>
+  <br>
+  <input type="submit" value="Create Tweet">
 </form>
